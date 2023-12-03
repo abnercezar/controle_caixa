@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #FFFACD;
+  background-color: #d3d3d3;
 }
 
 .card {
@@ -137,7 +137,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #8B795E;
+  background-color: #808080;
   color: #fff;
   position: fixed;
   top: 0;

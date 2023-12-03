@@ -1,31 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Últimos Pagamentos</h1>
+  <h1>Últimos Atendimentos</h1>
   <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
     <thead>
       <tr>
-        <th style="border: 1px solid black; padding: 5px;">Funcionário</th>
-        <th style="border: 1px solid black; padding: 5px;">Empresa</th>
+        <th style="border: 1px solid black; padding: 5px;">Irmã(o)s</th>
+        <th style="border: 1px solid black; padding: 5px;">Comum</th>
         <th style="border: 1px solid black; padding: 5px;">Valor</th>
-        <th style="border: 1px solid black; padding: 5px;">Data de Pagamento</th>
+        <th style="border: 1px solid black; padding: 5px;">Data do atendimento</th>
         <th style="border: 1px solid black; padding: 5px;">Editar</th>
         <th style="border: 1px solid black; padding: 5px;">Excluir</th>
       </tr>
     </thead>
     <tbody>
-      {% for pagamento in pagamentos %}
+      {% for atendimento in atendimentos %}
         <tr>
-          <td style="border: 1px solid black; padding: 5px;">{{ pagamento[0] }}</td>
-          <td style="border: 1px solid black; padding: 5px;">{{ pagamento[1] }}</td>
-          <td style="border: 1px solid black; padding: 5px;">{{ pagamento[2] }}</td>
-          <td style="border: 1px solid black; padding: 5px;">{{ pagamento[3] }}</td>
+          <td style="border: 1px solid black; padding: 5px;">{{ atendimento[0] }}</td>
+          <td style="border: 1px solid black; padding: 5px;">{{ atendimento[1] }}</td>
+          <td style="border: 1px solid black; padding: 5px;">{{ atendimento[2] }}</td>
+          <td style="border: 1px solid black; padding: 5px;">{{ atendimento[3] }}</td>
 
           <td style="border: 1px solid black; padding: 5px;">
-            <a href="{{ url_for('form_pagamento', id='12') }}">Editar</a>
+            <a href="{{ url_for('form_atendimento', id='12') }}">Editar</a>
           </td>
           <td style="border: 1px solid black; padding: 5px;">
-            <a href="{{ url_for('excluir_pagamento', id='12') }}">Excluir</a>
+            <a href="{{ url_for('excluir_atendimento', id='12') }}">Excluir</a>
           </td>
         </tr>
       {% endfor %}

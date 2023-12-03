@@ -33,7 +33,7 @@ _____
 ## 4- Que novas habilidades você precisará adquirir?
 - Conhecimentos em pyton
 - Conhecimentos em ploty para criar os gráficos.
-- Manipular os dados no Sqlite
+- Manipular os dados no 
 - Precisarei aprimorar como lidar com crud
 
 _____
