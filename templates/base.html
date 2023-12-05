@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta name="viewport" content="width=device-width, initial scale=1.0">
-	<title>{% block title %}ACA Software{% endblock %}</title>
+	<title>{% block title %}CCB PIEDADE{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
-	<header class ="header">
+	<header class="header">
 		<div class="header-wrapper">
 			<div class="title-wrapper">
-				<h1>Atendimentos Piedade</h1>
-				
-			</div>
-			<nav class="menu">
 
-				<a href="{{ url_for('cadastro') }}">
-					<span class="icon">&#x1F9CD;</span>
-					Cadastrar usuários
-				</a>
-				<a href="{{ url_for('dashboard') }}">
-					<span class="icon">&#x1F4CA;</span>
-					Dashboard
-				</a>
-				<a href="{{ url_for('funcionarios') }}">
-					<span class="icon">&#x1F46B;</span>
-					Cadastro de irmã(o)
-				</a>
-				<a href="{{ url_for('pagamentos') }}">
-					<span class="icon">&#x1F4B5;</span>
-					Atendimentos
-				</a>
-				<a href="{{ url_for('empresas_terc') }}">
-					<span class="icon">&#x1F3ED;</span>
-					Comuns
-				</a>
-				<a href="{{ url_for('index') }}">
-					<span class="icon">&#x1F4C3;</span>
-					Relatórios de atendimentos
-				</a>
-				<a href="{{ url_for('login_page') }}">
-					<span class="icon">&#x2190;</span>
-					Sair
-				  </a>
+
+			</div>
+			<nav class="menu" style="display: flex; justify-content: space-between; align-items: center;">
+				<!-- Imagem de perfil -->
+				<img src="{{ url_for('static', filename='image_upload.png') }}" alt="Perfil" class="perfil-image">
+
+
+				<nav class="menu">
+					<a href="{{ url_for('cadastro') }}" class="menu-item">
+						<span class="icon">&#x1F9CD;</span>
+						Cadastrar usuários
+					</a>
+					<a href="{{ url_for('dashboard') }}" class="menu-item">
+						<span class="icon">&#x1F4CA;</span>
+						Dashboard
+					</a>
+					<a href="{{ url_for('funcionarios') }}" class="menu-item">
+						<span class="icon">&#x1F46B;</span>
+						Cadastro de irmã(o)
+					</a>
+					<a href="{{ url_for('pagamentos') }}" class="menu-item">
+						<span class="icon">&#x1F4B5;</span>
+						Atendimentos
+					</a>
+					<a href="{{ url_for('empresas_terc') }}" class="menu-item">
+						<span class="icon">&#x1F3ED;</span>
+						Comuns
+					</a>
+					<a href="{{ url_for('index') }}" class="menu-item">
+						<span class="icon">&#x1F4C3;</span>
+						Relatórios de atendimentos
+					</a>
+					<a href="{{ url_for('login') }}" class="menu-item">
+						<span class="icon">&#x2190;</span>
+						Sair
+					</a>
+
+					<!-- O botão para abrir o modal -->
+					<button id="abrirModalBtn" class="primary_modal" style="margin-left: auto;">Criar Conta</button>
+				</nav>
 			</nav>
+
 		</div>
 	</header>
+
+
+
 
 	<main>
 		{% block content %}
@@ -59,3 +72,31 @@
 </body>
 
 </html>
+
+<script>
+	// Obtém o modal
+	var modal = document.getElementById("meuModal");
+
+	// Obtém o botão que abre o modal
+	var btn = document.getElementById("meuBotao");
+
+	// Obtém o elemento <span> que fecha o modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// Quando o usuário clica no botão, abre o modal 
+	btn.onclick = function () {
+		modal.style.display = "block";
+	}
+
+	// Quando o usuário clica no elemento <span> (x), fecha o modal
+	span.onclick = function () {
+		modal.style.display = "none";
+	}
+
+	// Quando o usuário clica em qualquer lugar fora do modal, fecha-o
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+</script>

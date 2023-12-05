@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-
+        <!-- Se você precisar adicionar conteúdo adicional acima do gráfico -->
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -14,6 +14,7 @@
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
+    // Certifique-se de que 'fig' esteja definido no contexto do template
     var data = {{ fig.to_json() | safe }};
     Plotly.newPlot('plotly-graph', data);
 </script>

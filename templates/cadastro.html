@@ -1,22 +1,80 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Criar Conta</h1>
-<div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
 
-  <form action="{{ url_for('enviar_cadastro') }}" method="POST">
-    <p style="display: block;">
-      <label for="nome" style="display: block; margin-bottom: 10px;">Nome:</label>
+
+<!-- O modal -->
+<div id="meuModal" class="modal">
+  <!-- Conteúdo do modal -->
+  <div class="modal-content">
+    <span id="fecharModal" class="close"></span>
+    <h2>Criar Conta</h2>
+    <form action="{{ url_for('cadastro') }}" method="POST">
+      <label for="nome">Nome:</label>
       <input type="text" id="nome" name="nome" class="form-control input-medio">
-    </p>
-    <p style="display: block;">
-      <label for="email" style="display: block; margin-bottom: 10px;">Email:</label>
+      <label for="email">Email:</label>
       <input type="email" id="email" name="email" class="form-control input-medio">
-    </p>
-    <p style="display: flex; justify-content: center;">
-      <input type="submit" value="Criar Conta" class="primary">
-      <input type="submit" value="Cancelar" class="danger">
-    </p>
-  </form>
+      <div style="display: flex; justify-content: center; margin-top: 10px;">
+        <input type="button" value="Criar Conta" class="primary">
+        <input type="button" value="Cancelar" class="danger" onclick="cancelar()">
+      </div>
+    </form>
+  </div>
 </div>
+
+
+<!-- Tabela de pessoas cadastradas -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <table style="border-collapse: collapse; width: 80%; border: 2px solid #ddd;">
+    <caption style="font-size: 1.5em; font-weight: bold; border: 1px solid #ddd; padding: 8px; text-align: center;">
+      Pessoas Cadastradas</caption>
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Nome</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">João Silva</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">joao.silva@example.com</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Maria Oliveira</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">maria.oliveira@example.com</td>
+      </tr>
+      <!-- Adicione quantas linhas desejar -->
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+<!-- Script para controlar o modal -->
+<script>
+  // Encontrar elementos DOM
+  var abrirModalBtn = document.getElementById("abrirModalBtn");
+  var fecharModalBtn = document.getElementById("fecharModalBtn");
+  var meuModal = document.getElementById("meuModal");
+
+  // Função para abrir o modal
+  abrirModalBtn.onclick = function () {
+    meuModal.style.display = "flex";
+  };
+
+  // Função para fechar o modal
+  fecharModalBtn.onclick = function () {
+    meuModal.style.display = "none";
+  };
+
+  // Fechar o modal se o usuário clicar fora dele
+  window.onclick = function (event) {
+    if (event.target == meuModal) {
+      meuModal.style.display = "none";
+    }
+  };
+</script>
+
 {% endblock %}

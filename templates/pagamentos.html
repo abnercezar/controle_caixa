@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Registrar pagamentos</h1>
 <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
-<form action="{{ url_for('form_pagamento', id=id) }}" method="POST">
+<form action="{{ url_for('pagamentos', id=id) }}" method="POST">
     <p style="display: block;">
         <label for="nome_func">Nome:</label>
         <br>
