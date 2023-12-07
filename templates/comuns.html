@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- O modal -->
+<div id="meuModal" class="modal">
+  <!-- Conteúdo do modal -->
+  <div class="modal-content">
+    <span id="fecharModal" class="close"></span>
+    <h1>Cadastro de comuns</h1>
+    <form action="{{ url_for('comuns') }}" method="POST">
+      <p>
+        <label for="comum">Comum</label>
+        <br>
+        <input type="text" id="comum" name="comum" class="form-control input-medio">
+
+        <label for="endereco">Endereço:</label>
+        <br>
+        <input type="text" id="endereco" name="endereco" class="form-control input-medio">
+
+        <label for="bairro">Bairro:</label>
+        <br>
+        <input type="text" id="bairro" name="bairro" class="form-control input-medio">
+
+        <label for="cidade">Cidade:</label>
+        <br>
+        <input type="text" id="cidade" name="cidade" class="form-control input-medio">
+      </p>
+
+      <div style="display: flex; gap: 20px;">
+        <div>
+          <label for="estado">Estado:</label>
+          <br>
+          <input type="text" id="estado" name="estado" class="form-control input-pequeno">
+        </div>
+
+        <div>
+          <label for="pais">País:</label>
+          <br>
+          <input type="text" id="pais" name="pais" class="form-control input-pequeno">
+        </div>
+      </div><br>
+
+      <div style="display: flex; justify-content: center;">
+        <input type="submit" value="Salvar" class="primary">
+        <input type="submit" value="Cancelar" class="danger">
+      </div>  
+    </form>
+  </div>
+</div>
+
+<!-- Tabela de pessoas cadastradas -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <table style="border-collapse: collapse; width: 80%; border: 2px solid #ddd;">
+    <caption style="font-size: 1.5em; font-weight: bold; border: 1px solid #ddd; padding: 8px; text-align: center;">
+      Irmãs cadastradas</caption>
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Comum</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Endereço</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Bairro</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Cidade</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Estado</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">País</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Jd.Franciscato</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Av. Guilherme de Almeida, 0000</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(43)99192-9192</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Londrina</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Paraná</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Brasil</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Maravilha</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Av.Principal</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(43)99125-5898</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Londrina</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Paraná</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Brasil</td>
+      </tr>
+      <!-- Adicione quantas linhas desejar -->
+    </tbody>
+  </table>
+</div>
+
+
+
+<!-- Script para controlar o modal -->
+<script>
+  // Encontrar elementos DOM
+  var abrirModalBtn = document.getElementById("abrirModalBtn");
+  var fecharModalBtn = document.getElementById("fecharModalBtn");
+  var meuModal = document.getElementById("meuModal");
+
+  // Função para abrir o modal
+  abrirModalBtn.onclick = function () {
+    meuModal.style.display = "flex";
+  };
+
+  // Função para fechar o modal
+  fecharModalBtn.onclick = function () {
+    meuModal.style.display = "none";
+  };
+
+  // Fechar o modal se o usuário clicar fora dele
+  window.onclick = function (event) {
+    if (event.target == meuModal) {
+      meuModal.style.display = "none";
+    }
+  };
+</script>
+
+{% endblock %}

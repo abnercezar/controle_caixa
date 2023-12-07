@@ -41,20 +41,20 @@ def dashboard():
     # Lógica para a página de dashboard
     return render_template("dashboard.html")
 
-@app.route("/funcionarios")
-def funcionarios():
-    # Lógica para a página de funcionários
-    return render_template("funcionarios.html")
+@app.route("/irmas")
+def irmas():
+    # Lógica para a página de irmas
+    return render_template("irmas.html")
 
-@app.route("/pagamentos")
-def pagamentos():
-    # Lógica para a página de pagamentos
-    return render_template("pagamentos.html")
+@app.route("/atendimentos")
+def atendimentos():
+    # Lógica para a página de atendimentos
+    return render_template("atendimentos.html")
 
-@app.route("/empresas_terc")
-def empresas_terc():
-    # Lógica para a página de empresas_terc
-    return render_template("empresas_terc.html")
+@app.route("/comuns")
+def comuns():
+    # Lógica para a página de comuns
+    return render_template("comuns.html")
 
 @app.route("/login")
 def login():

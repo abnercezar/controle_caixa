@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- O modal -->
+<div id="meuModal" class="modal">
+    <!-- Conteúdo do modal -->
+    <div class="modal-content">
+        <span id="fecharModal" class="close"></span>
+        <h1>Novo atendimento</h1><br>
+        <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+            <form action="{{ url_for('atendimentos', id=id) }}" method="POST">
+                <p style="display: block;">
+                    <label for="nome_func">Nome:</label>
+                    <br>
+                    <select id="nome_func" name="nome_func" class="form-control input-medio">
+                        <option value="">Selecione a irmã</option>
+                        {% for irmas in irmas %}
+                        <option value="{{ irma [1] }}">{{ irma [1] }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p style="display: block;">
+                    <label for="tipo">Tipo:</label>
+                    <br>
+                    <select name="tipo" id="tipo" class="form-control input-medio">
+                        <option value="">Selecione o tipo</option>
+                        <option value="especie">Espécie</option>
+                        <option value="cartao">Cartão</option>
+                    </select>
+                </p>
+                <p style="display: block;">
+                    <label for="valor">Valor:</label>
+                    <br>
+                    <input type="text" id="valor" name="valor" class="form-control input-medio">
+                </p>
+                <p style="display: block;">
+                    <label for="data">Data:</label>
+                    <br>
+                    <input type="date" id="data" name="data" class="form-control input-medio">
+                </p>
+                <p style="display: flex; justify-content: center;">
+                    <input type="submit" value="Cadastrar" class="primary" onclick="cadastrar()">
+                    <input type="button" value="Cancelar" class="danger" onclick="cancelar()">
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Tabela de pessoas cadastradas -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <table style="border-collapse: collapse; width: 80%; border: 2px solid #ddd;">
+        <caption style="font-size: 1.5em; font-weight: bold; border: 1px solid #ddd; padding: 8px; text-align: center;">
+            Irmãs cadastradas</caption>
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Nome</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Tipo</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Valor</th>
+                <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">João Silva</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Cartão</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">R$500,00</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">06/12/2023</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Maria Oliveira</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Espécie</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">R$500,00</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">06/12/2023</td>
+            </tr>
+            <!-- Adicione quantas linhas desejar -->
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Script para controlar o modal -->
+<script>
+    // Encontrar elementos DOM
+    var abrirModalBtn = document.getElementById("abrirModalBtn");
+    var fecharModalBtn = document.getElementById("fecharModalBtn");
+    var meuModal = document.getElementById("meuModal");
+
+    // Função para abrir o modal
+    abrirModalBtn.onclick = function () {
+        meuModal.style.display = "flex";
+    };
+
+    // Função para fechar o modal
+    fecharModalBtn.onclick = function () {
+        meuModal.style.display = "none";
+    };
+
+    // Fechar o modal se o usuário clicar fora dele
+    window.onclick = function (event) {
+        if (event.target == meuModal) {
+            meuModal.style.display = "none";
+        }
+    };
+</script>
+
+{% endblock %}

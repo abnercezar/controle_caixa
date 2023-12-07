@@ -3,12 +3,12 @@
 #### Finalidade do meu projeto:
 _____
 ## 1- O que seu software fará?
-- Meu software fará o controle de pagamentos para empresas prestadoras de serviços (empresas terceirizadas).
+- Meu software fará o controle de atendimentos para empresas prestadoras de serviços (empresas terceirizadas).
 - Terá ícones para o usuário acessar as demais páginas
 - Criar cadastro de usuários
 - Criar cadastros de empresas
 - Criar cadastros de funcionários
-- Criar registros de pagamentos
+- Criar registros de atendimentos
 - Emitir relatórios
 - Mostrar gráficos na Dashboard
 - Criar tabelas para mostrar os dados para o usuário.
@@ -18,7 +18,7 @@ _____
 ## 2- Que características terá?
 - Suas caracteristicas serão:
     Que uma empresa administradora responsável por executar serviços recruta ou terceiriza serviços para outras empresas realizarem, então o financeiro
-    precisa de ter um controle de caixa pois o fluxo de pagamentos é bem grande.
+    precisa de ter um controle de caixa pois o fluxo de atendimentos é bem grande.
 - Solucionar problemas com controles de caixa.
 _____
 
@@ -47,7 +47,7 @@ _____
 - Como trabalhar corretamente com pyton?
 - Como fazer uma boa estilização no meu código?
 - Como inserir ícones?
-- Como criar uma tabela para inserir os dados dos pagamentos?
+- Como criar uma tabela para inserir os dados dos atendimentos?
 - Como Realizar o envio do projeto?
 - Como usar Markdown?
 - Como inserir ícones para melhor interação do usuário.

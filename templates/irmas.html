@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<!-- O modal -->
+<div id="meuModal" class="modal">
+  <!-- Conteúdo do modal -->
+  <div class="modal-content">
+    <span id="fecharModal" class="close"></span>
+    <h1>Cadastro de irmãs</h1>
+    <form action="{{ url_for('irmas') }}" method="POST">
+      <p style="display: block;">
+        <label for="comum">Comum:</label>
+        <br>
+        <select id="comum" name="comum" class="form-control input-medio">
+          <option value="">Selecione a comum</option>
+          {% for comum in comuns %}
+          <option value="{{ comum[0] }}">{{ comum[1] }}</option>
+          {% endfor %}
+        </select>
+      </p>
+      <p style="display: block;">
+        <label for="nome">Nome:</label>
+        <br>
+        <input type="text" id="nome" name="nome" class="form-control input-medio">
+      </p>
+      <p>
+        <label for="cpf">Cpf:</label>
+        <br>
+        <input type="text" id="cpf" name="cpf" class="form-control input-medio">
+      </p>
+      <p>
+        <label for="contato">Contato:</label>
+        <br>
+        <input type="text" id="contato" name="contato" class="form-control input-medio">
+      </p>
+      <p style="display: flex; justify-content: center;">
+        <input type="submit" value="Cadastrar" class="primary">
+        <input type="submit" value="Cancelar" class="danger">
+      </p>
+    </form>
+  </div>
+</div>
+
+
+<!-- Tabela de pessoas cadastradas -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <table style="border-collapse: collapse; width: 80%; border: 2px solid #ddd;">
+    <caption style="font-size: 1.5em; font-weight: bold; border: 1px solid #ddd; padding: 8px; text-align: center;">
+      Irmãs cadastradas</caption>
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Nome</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Comum</th>
+        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Contato</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">João Silva</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Jd. Franciscato</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(43)99192-9192</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Maria Oliveira</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">Maravilha</td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">(43)99125-5898</td>
+      </tr>
+      <!-- Adicione quantas linhas desejar -->
+    </tbody>
+  </table>
+</div>
+
+
+
+<!-- Script para controlar o modal -->
+<script>
+  // Encontrar elementos DOM
+  var abrirModalBtn = document.getElementById("abrirModalBtn");
+  var fecharModalBtn = document.getElementById("fecharModalBtn");
+  var meuModal = document.getElementById("meuModal");
+
+  // Função para abrir o modal
+  abrirModalBtn.onclick = function () {
+    meuModal.style.display = "flex";
+  };
+
+  // Função para fechar o modal
+  fecharModalBtn.onclick = function () {
+    meuModal.style.display = "none";
+  };
+
+  // Fechar o modal se o usuário clicar fora dele
+  window.onclick = function (event) {
+    if (event.target == meuModal) {
+      meuModal.style.display = "none";
+    }
+  };
+</script>
+
+{% endblock %}
