@@ -1,79 +1,106 @@
 from flask import Flask, render_template, redirect, url_for, request
-from connection import cnx
+from plotly.graph_objs import Figure
+from connection import get_mysql_connection
 
 app = Flask(__name__, static_folder="static")
 
-# Função fictícia para obter dados de atendimentos
-def obter_dados_atendimentos():
-    # Substitua esta lógica com a lógica real para obter seus dados de atendimentos
-    dados_atendimentos = [
-        ("Irmã(o) 1", "Comum 1", 100, "2023-12-04"),
-        ("Irmã(o) 2", "Comum 2", 150, "2023-12-03"),
-        # ... outros dados
-    ]
-    return dados_atendimentos
+
 
 # Rota para a página index e atendimentos
-@app.route('/')
+@app.route("/")
 def index():
-    # Criar um gráfico Plotly simples
-    trace = go.Scatter(x=[1, 2, 3, 4], y=[10, 11, 12, 13], mode='markers')
-    data = [trace]
-    layout = go.Layout(title='Gráfico de Exemplo', showlegend=False)
-    fig = go.Figure(data=data, layout=layout)
+    # Obtém uma conexão com o banco de dados
+    conn = get_mysql_connection()
 
-    # Passar o objeto 'fig' para o template ao renderizar
-    return render_template('seu_template.html', fig=fig)
-
-@app.route("/cadastro", methods=["GET", "POST"])
-def cadastro():
-    if request.method == "POST":
-        # Lógica para processar o formulário de cadastro
+    if conn:
+        # Lógica para processar a conexão e renderizar a página
         # ...
-        return redirect(url_for('alguma_pagina_apos_cadastro'))  # ajuste conforme necessário
+
+        # Fecha a conexão após o uso
+        conn.close()
+
+    return render_template("index.html")
+
+
+# Rota para a página de cadastros
+@app.route("/cadastros", methods=["GET", "POST"])
+def cadastros():
+    if request.method == "POST":
+        # Lógica para processar o formulário de cadastros
+        nome = request.form.get("nome")
+        email = request.form.get("email")
+
+        # Obtém uma conexão com o banco de dados
+        conn = get_mysql_connection()
+
+        if conn:
+            cursor = conn.cursor()
+
+            # Execute a instrução SQL INSERT
+            sql_insert = "INSERT INTO users (name, email) VALUES (%s, %s)"
+            values = (name, email)
+            cursor.execute(sql_insert, values)
+
+            # Faça o commit da transação e feche a conexão
+            conn.commit()
+            conn.close()
+
+        # Redirecione após a inserção
+        return redirect(url_for("index"))
+
     else:
-        # Lógica para exibir a página de cadastro
-        return render_template("cadastro.html")
+        # Lógica para exibir a página de cadastros
+        return render_template("cadastros.html")
 
 
 @app.route("/dashboard")
 def dashboard():
-    # Lógica para a página de dashboard
-    return render_template("dashboard.html")
+    # Criar um objeto Figure do Plotly
+    fig = Figure(data=[{"x": [1, 2, 3], "y": [4, 5, 6]}])
+
+    # Adicionar um log para verificar o conteúdo da variável fig
+    print(fig)
+
+    return render_template("dashboard.html", fig=fig)
+
 
 @app.route("/irmas")
 def irmas():
     # Lógica para a página de irmas
     return render_template("irmas.html")
 
+
 @app.route("/atendimentos")
 def atendimentos():
     # Lógica para a página de atendimentos
     return render_template("atendimentos.html")
+
 
 @app.route("/comuns")
 def comuns():
     # Lógica para a página de comuns
     return render_template("comuns.html")
 
+
 @app.route("/login")
 def login():
     # Lógica para a página de login
     return render_template("login.html")
+
 
 @app.route("/form_atendimento/<int:id>")
 def form_atendimento(id):
     # Lógica para a página de form_atendimento
     return render_template("form_atendimento.html", id=id)
 
+
 @app.route("/excluir_atendimento/<int:id>")
 def excluir_atendimento(id):
     # Lógica para a página de excluir_atendimento
     return render_template("excluir_atendimento.html", id=id)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-    
-    
+
+
+
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

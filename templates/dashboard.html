@@ -14,8 +14,10 @@
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
-    // Certifique-se de que 'fig' esteja definido no contexto do template
-    var data = {{ fig.to_json() | safe }};
+    console.log("Verificando se 'fig' está definido:", {{ fig is defined }});
+    var data = {{ fig.to_json() if fig is defined else 'null' | safe }};
+    console.log("Conteúdo de 'data':", data);
     Plotly.newPlot('plotly-graph', data);
 </script>
+
 {% endblock %}

@@ -9,14 +9,14 @@
   <div class="modal-content">
     <span id="fecharModal" class="close"></span>
     <h2>Criar Conta</h2>
-    <form action="{{ url_for('cadastro') }}" method="POST">
+    <form action="{{ url_for('cadastros') }}" method="POST">
       <label for="nome">Nome:</label>
       <input type="text" id="nome" name="nome" class="form-control input-medio">
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" class="form-control input-medio">
       <div style="display: flex; justify-content: center; margin-top: 10px;">
-        <input type="button" value="Criar Conta" class="primary">
-        <input type="button" value="Cancelar" class="danger" onclick="cancelar()">
+        <input id="cadastrarBtn" type="button" value="Criar Conta" class="primary" onclick="cadastrar()">
+        <input id="fecharModalBtn" type="button" value="Cancelar" class="danger" onclick="cancelar()">
       </div>
     </form>
   </div>
@@ -48,16 +48,40 @@
   </table>
 </div>
 
-
-
-
-
 <!-- Script para controlar o modal -->
 <script>
   // Encontrar elementos DOM
   var abrirModalBtn = document.getElementById("abrirModalBtn");
   var fecharModalBtn = document.getElementById("fecharModalBtn");
   var meuModal = document.getElementById("meuModal");
+  var cadastrar = document.getElementById("cadastrarBtn");
+  cadastrar.onclick = function cadastrar() {
+    // Seu código de cadastro aqui
+    var nome = document.getElementById("nome").value;
+    var email = document.getElementById("email").value;
+
+    // Criar um objeto FormData e adicionar os valores dos campos do formulário
+   var formData = new FormData();
+   formData.append("nome", nome);
+   formData.append("email", email);
+
+   // Enviar uma solicitação POST para a rota /cadastros do servidor Flask
+   fetch("/cadastros", {
+       method: "POST",
+       body: formData
+   })
+   .then(response => response.text())
+   .then(data => {
+       // O servidor retornou uma resposta, você pode fazer algo com ela aqui
+       console.log(data);
+   })
+   .catch(error => {
+       // Ocorreu um erro ao enviar a solicitação
+       console.error("Erro:", error);
+   });
+   console.log("chegou aqui");
+};
+
 
   // Função para abrir o modal
   abrirModalBtn.onclick = function () {
@@ -76,5 +100,6 @@
     }
   };
 </script>
+<script src="cadastros.js"></script>
 
 {% endblock %}

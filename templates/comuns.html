@@ -42,8 +42,8 @@
       </div><br>
 
       <div style="display: flex; justify-content: center;">
-        <input type="submit" value="Salvar" class="primary">
-        <input type="submit" value="Cancelar" class="danger">
+        <input id="salvarBtn" type="button" value="Salvar" class="primary" onclick="salvar()">
+        <input id="fecharModalBtn" type="button" value="Cancelar" class="danger" onclick="cancelar()">
       </div>  
     </form>
   </div>
@@ -95,6 +95,11 @@
   var abrirModalBtn = document.getElementById("abrirModalBtn");
   var fecharModalBtn = document.getElementById("fecharModalBtn");
   var meuModal = document.getElementById("meuModal");
+  var salvar = document.getElementById("salvarBtn");
+  salvar.onclick = function salvar() {
+    // Seu código de cadastro aqui
+   console.log("chegou aqui");
+};
 
   // Função para abrir o modal
   abrirModalBtn.onclick = function () {

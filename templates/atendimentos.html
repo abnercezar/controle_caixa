@@ -11,10 +11,10 @@
         <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
             <form action="{{ url_for('atendimentos', id=id) }}" method="POST">
                 <p style="display: block;">
-                    <label for="nome_func">Nome:</label>
+                    <label for="irma">Nome:</label>
                     <br>
-                    <select id="nome_func" name="nome_func" class="form-control input-medio">
-                        <option value="">Selecione a irmã</option>
+                    <select id="irma" name="irma" class="form-control input-medio">
+                        <option value="">Irmãs</option>
                         {% for irmas in irmas %}
                         <option value="{{ irma [1] }}">{{ irma [1] }}</option>
                         {% endfor %}
@@ -40,8 +40,8 @@
                     <input type="date" id="data" name="data" class="form-control input-medio">
                 </p>
                 <p style="display: flex; justify-content: center;">
-                    <input type="submit" value="Cadastrar" class="primary" onclick="cadastrar()">
-                    <input type="button" value="Cancelar" class="danger" onclick="cancelar()">
+                    <input id="salvarBtn" type="button" value="Salvar" class="primary" onclick="salvar()">
+                    <input id="fecharModalBtn" type="button" value="Cancelar" class="danger" onclick="cancelar()">
                 </p>
             </form>
         </div>
@@ -87,6 +87,11 @@
     var abrirModalBtn = document.getElementById("abrirModalBtn");
     var fecharModalBtn = document.getElementById("fecharModalBtn");
     var meuModal = document.getElementById("meuModal");
+    var salvar = document.getElementById("salvarBtn");
+  salvar.onclick = function salvar() {
+    // Seu código de cadastro aqui
+   console.log("chegou aqui");
+};
 
     // Função para abrir o modal
     abrirModalBtn.onclick = function () {
