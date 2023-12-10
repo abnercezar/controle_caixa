@@ -1,8 +1,15 @@
+import os
 from flask import Flask, render_template, redirect, url_for, request
+from flask import flash
+print(flash)
 from plotly.graph_objs import Figure
 from connection import get_mysql_connection
 
 app = Flask(__name__, static_folder="static")
+app.secret_key = os.getenv('SECRET_KEY')
+print(app.secret_key)
+app.env = 'development'
+app.debug = True
 
 
 
@@ -28,29 +35,58 @@ def cadastros():
     if request.method == "POST":
         # Lógica para processar o formulário de cadastros
         name = request.form.get("name")
-        email = request.form.get("email")
+        email = request.form.get("email").strip()
 
-        # Obtém uma conexão com o banco de dados
-        conn = get_mysql_connection()
+        # Verifica se o e-mail já existe no banco de dados
+        if not email_exists(email):
+            # Obtém uma conexão com o banco de dados
+            conn = get_mysql_connection()
 
-        if conn:
-            cursor = conn.cursor()
+            if conn:
+                cursor = conn.cursor()
 
-            # Execute a instrução SQL INSERT
-            sql_insert = "INSERT INTO users (name, email) VALUES (%s, %s)"
-            values = (name, email)
-            cursor.execute(sql_insert, values)
+                # Execute a instrução SQL INSERT
+                sql_insert = "INSERT INTO users (name, email) VALUES (%s, %s)"
+                values = (name, email)
+                try:
+                    cursor.execute(sql_insert, values)
+                    conn.commit()
+                except mysql.connector.errors.IntegrityError:
+                    flash("E-mail já cadastrado. Por favor, escolha outro e-mail.", "error")
 
-            # Faça o commit da transação e feche a conexão
-            conn.commit()
-            conn.close()
+                # Faça o commit da transação e feche a conexão
+                conn.commit()
+                conn.close()
 
-        # Redirecione após a inserção
-        return redirect(url_for("cadastro"))
+                # Redirecione após a inserção
+                return redirect(url_for("cadastro"))
+            else:
+                flash("Erro ao conectar ao banco de dados", "error")
+        else:
+            flash("E-mail já cadastrado. Por favor, escolha outro e-mail.", "error")
 
+    # Lógica para exibir a página de cadastros
+    return render_template("cadastros.html")
+
+# Função para verificar se o e-mail já existe no banco de dados
+def email_exists(email):
+    conn = get_mysql_connection()
+    
+    if conn:
+        cursor = conn.cursor(dictionary=True)
+
+        # Execute a instrução SQL SELECT para verificar se o e-mail já existe
+        sql_select = "SELECT * FROM users WHERE email = %s"
+        cursor.execute(sql_select, (email,))
+        result = cursor.fetchone()
+
+        # Feche a conexão
+        conn.close()
+
+        return result is not None
     else:
-        # Lógica para exibir a página de cadastros
-        return render_template("cadastros.html")
+        flash("Erro ao conectar ao banco de dados", "error")
+        return False
 
 
 @app.route("/dashboard")
