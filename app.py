@@ -27,7 +27,7 @@ def index():
 def cadastros():
     if request.method == "POST":
         # Lógica para processar o formulário de cadastros
-        nome = request.form.get("nome")
+        name = request.form.get("name")
         email = request.form.get("email")
 
         # Obtém uma conexão com o banco de dados
@@ -46,7 +46,7 @@ def cadastros():
             conn.close()
 
         # Redirecione após a inserção
-        return redirect(url_for("index"))
+        return redirect(url_for("cadastro"))
 
     else:
         # Lógica para exibir a página de cadastros
