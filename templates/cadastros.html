@@ -6,8 +6,18 @@
 <!-- O modal -->
 <div id="meuModal" class="modal">
   <!-- Conteúdo do modal -->
+
   <div class="modal-content">
     <span id="fecharModal" class="close"></span>
+    <div id="mensagem-modal" {% if mostrar_mensagem %}class="mostrar" {% endif %}>
+      {% for message in get_flashed_messages() %}
+      {{ message }}
+      {% endfor %}
+      {% if mostrar_mensagem %}
+      <p>Cadastro realizado com sucesso!</p>
+      {% endif %}
+    </div>
+
     <h2>Criar Conta</h2>
     <form action="{{ url_for('cadastros') }}" method="POST">
       <label for="name">Nome:</label>
@@ -17,9 +27,9 @@
       <div style="display: flex; justify-content: center; margin-top: 10px;">
         <input id="cadastrarBtn" type="submit" value="Criar Conta" class="primary" onclick="cadastrar()">
         <input id="fecharModalBtn" type="button" value="Cancelar" class="danger" onclick="cancelar()">
-      </div>
     </form>
   </div>
+</div>
 </div>
 
 
@@ -61,26 +71,26 @@
     var email = document.getElementById("email").value;
 
     // Criar um objeto FormData e adicionar os valores dos campos do formulário
-   var formData = new FormData();
-   formData.append("name", name);
-   formData.append("email", email);
+    var formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
 
-   // Enviar uma solicitação POST para a rota /cadastros do servidor Flask
-   fetch("/cadastros", {
-       method: "POST",
-       body: formData
-   })
-   .then(response => response.text())
-   .then(data => {
-       // O servidor retornou uma resposta, você pode fazer algo com ela aqui
-       console.log(data);
-   })
-   .catch(error => {
-       // Ocorreu um erro ao enviar a solicitação
-       console.error("Erro:", error);
-   });
-   console.log("chegou aqui");
-};
+    // Enviar uma solicitação POST para a rota /cadastros do servidor Flask
+    fetch("/cadastros", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.text())
+      .then(data => {
+        // O servidor retornou uma resposta, você pode fazer algo com ela aqui
+        console.log(data);
+      })
+      .catch(error => {
+        // Ocorreu um erro ao enviar a solicitação
+        console.error("Erro:", error);
+      });
+    console.log("chegou aqui");
+  };
 
 
   // Função para abrir o modal
@@ -99,6 +109,11 @@
       meuModal.style.display = "none";
     }
   };
+
+  // Esconde a mensagem após 3 segundos
+  setTimeout(function () {
+    document.getElementById("mensagem-modal").classList.remove("mostrar");
+  }, 3000);
 </script>
 <script src="cadastros.js"></script>
 

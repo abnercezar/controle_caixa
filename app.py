@@ -1,16 +1,16 @@
+from dotenv import load_dotenv
 import os
-from flask import Flask, render_template, redirect, url_for, request
-from flask import flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
+
 print(flash)
 from plotly.graph_objs import Figure
 from connection import get_mysql_connection
 
 app = Flask(__name__, static_folder="static")
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.getenv("SECRET_KEY")
 print(app.secret_key)
-app.env = 'development'
+app.env = "development"
 app.debug = True
-
 
 
 # Rota para a página index e atendimentos
@@ -32,6 +32,7 @@ def index():
 # Rota para a página de cadastros
 @app.route("/cadastros", methods=["GET", "POST"])
 def cadastros():
+    
     if request.method == "POST":
         # Lógica para processar o formulário de cadastros
         name = request.form.get("name")
@@ -51,27 +52,33 @@ def cadastros():
                 try:
                     cursor.execute(sql_insert, values)
                     conn.commit()
-                except mysql.connector.errors.IntegrityError:
-                    flash("E-mail já cadastrado. Por favor, escolha outro e-mail.", "error")
 
-                # Faça o commit da transação e feche a conexão
-                conn.commit()
+                    # Redefine a variável de sessão para False após a operação de cadastro bem-sucedida
+                    session["mostrar_mensagem"] = True
+                except mysql.connector.errors.IntegrityError:
+                    flash(
+                        "E-mail já cadastrado. Por favor, escolha outro e-mail.",
+                        "error",
+                    )
+
+                # Feche a conexão
                 conn.close()
 
                 # Redirecione após a inserção
-                return redirect(url_for("cadastro"))
-            else:
-                flash("Erro ao conectar ao banco de dados", "error")
+                return redirect(url_for("cadastros"))
+
         else:
             flash("E-mail já cadastrado. Por favor, escolha outro e-mail.", "error")
+            
 
     # Lógica para exibir a página de cadastros
-    return render_template("cadastros.html")
+    return render_template("cadastros.html", mostrar_mensagem=session.pop("cadastro_sucesso", False))
+
 
 # Função para verificar se o e-mail já existe no banco de dados
 def email_exists(email):
     conn = get_mysql_connection()
-    
+
     if conn:
         cursor = conn.cursor(dictionary=True)
 
@@ -134,8 +141,6 @@ def form_atendimento(id):
 def excluir_atendimento(id):
     # Lógica para a página de excluir_atendimento
     return render_template("excluir_atendimento.html", id=id)
-
-
 
 
 if __name__ == "__main__":
